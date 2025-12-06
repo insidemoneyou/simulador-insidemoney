@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Simulador Insidemoney – Prejuízo Fiscal</title>
 
 <style>
-/* ========================= */
-/* PALETA INSIDEMONEY */
-/* ========================= */
+/* ============================= */
+/*      ESTILOS PRINCIPAIS       */
+/* ============================= */
+
 :root {
   --fundo: #f4f0eb;
   --primaria: #0083a3;
@@ -16,7 +17,7 @@
   --caramelo: #d8854d;
   --texto: #1c1c1c;
   --texto-sec: #666;
-  --branco: #fff;
+  --branco: #ffffff;
 
   --verde-beneficio: #008f39;
   --verde-bg: #e3f9e9;
@@ -25,54 +26,54 @@
   --vermelho-bg: #ffe7e3;
 }
 
-/* ========================= */
-/* BASE */
-/* ========================= */
 body {
   font-family: Arial, sans-serif;
   background: var(--fundo);
+  color: var(--texto);
   margin: 0;
   padding: 20px;
-  width: 818px; /* Fixado para compatibilidade CANVA */
+  width: 760px;   /* 🔥 FIXO: funciona no Canva */
   box-sizing: border-box;
 }
 
 h2 {
-  margin: 0 0 6px 0;
-  font-size: 24px;
+  font-size: 25px;
   color: var(--primaria);
+  margin-bottom: 6px;
 }
 
 .subtitle {
-  margin-bottom: 22px;
-  max-width: 750px;
-  font-size: 14px;
   color: var(--texto-sec);
+  font-size: 13px;
+  margin-bottom: 24px;
+  max-width: 680px;
 }
 
-/* ========================= */
-/* GRID FIXO 818PX */
-/* ========================= */
-.wrapper {
-  display: grid;
-  grid-template-columns: 395px 395px; /* LADO A LADO */
-  gap: 28px;
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+  width: 100%;
 }
 
-/* ========================= */
-/* PAINÉIS */
-/* ========================= */
+/* ============================= */
+/*            PAINÉIS            */
+/* ============================= */
+
 .panel {
   background: var(--branco);
   padding: 18px;
-  border-radius: 14px;
-  border: 2px solid #e0d8cf;
+  border-radius: 16px;
+  border: 2px solid #ddd2c7;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  flex: 1;
 }
 
 .panel-title {
   font-size: 16px;
   font-weight: bold;
   color: var(--primaria);
+  margin-bottom: 4px;
 }
 
 .panel-sub {
@@ -81,17 +82,18 @@ h2 {
   margin-bottom: 14px;
 }
 
-/* ========================= */
-/* INPUTS */
-/* ========================= */
+/* ============================= */
+/*             INPUTS            */
+/* ============================= */
+
 .input-group {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 label {
   display: block;
-  font-size: 13px;
   font-weight: bold;
+  font-size: 13px;
   margin-bottom: 5px;
 }
 
@@ -100,53 +102,31 @@ select {
   width: 100%;
   padding: 9px 10px;
   font-size: 14px;
-  border-radius: 10px;
-  border: 1px solid #bbb;
+  border-radius: 9px;
+  border: 1px solid #ccc;
   background: #fafafa;
+  box-sizing: border-box;
 }
 
 input[type="range"] {
   width: 100%;
+  margin: 5px 0 6px 0;
 }
 
-small {
-  font-size: 11px;
-  color: var(--texto-sec);
-}
+/* ============================= */
+/*          CARDS RESULT         */
+/* ============================= */
 
-/* ========================= */
-/* CARDS RESULTADO */
-/* ========================= */
-.card {
-  padding: 10px 14px;
-  border-radius: 12px;
+.results-card {
+  padding: 14px;
+  border-radius: 14px;
   margin-bottom: 12px;
   border: 2px solid transparent;
 }
 
-.card h4 {
-  margin: 0;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.value {
-  font-size: 20px;
-  font-weight: bold;
-  margin-top: 4px;
-}
-
-.value.green { color: var(--verde-beneficio); }
-.value.red { color: var(--vermelho-prejuizo); }
-
 .card-info {
   background: rgba(0,131,163,0.08);
   border-color: var(--primaria);
-}
-
-.card-beneficio {
-  background: var(--verde-bg);
-  border-color: var(--verde-beneficio);
 }
 
 .card-prejuizo {
@@ -154,177 +134,215 @@ small {
   border-color: var(--vermelho-prejuizo);
 }
 
-/* ========================= */
-/* IMPORTANTE */
-/* ========================= */
+.card-beneficio {
+  background: var(--verde-bg);
+  border-color: var(--verde-beneficio);
+}
+
+.results-card h4 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.value {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.value.red { color: var(--vermelho-prejuizo); }
+.value.green { color: var(--verde-beneficio); }
+
+/* ============================= */
+/*          AVISO FINAL          */
+/* ============================= */
+
 .important {
   background: rgba(240,128,24,0.12);
   border: 2px solid var(--laranja);
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 12px;
-  color: var(--texto-sec);
   margin-top: 14px;
-  line-height: 1.4;
+  color: var(--texto-sec);
 }
+
+/* ============================= */
 </style>
 </head>
 
 <body>
 
 <h2>Simulador de Prejuízo Fiscal – Rendimentos no Exterior</h2>
+
 <p class="subtitle">
-  Descubra quanto imposto pode estar sendo acumulado como <strong>passivo oculto</strong> no Brasil por receber renda 
+  Descubra quanto imposto pode estar sendo acumulado como <strong>passivo oculto</strong> no Brasil por receber renda
   do exterior sem declarar — e compare isso com o investimento para regularizar sua situação fiscal.
 </p>
 
-<div class="wrapper">
+<div class="container">
 
-  <!-- ===================== -->
-  <!-- COLUNA ESQUERDA -->
-  <!-- ===================== -->
+  <!-- ======================== -->
+  <!--     COLUNA ESQUERDA      -->
+  <!-- ======================== -->
   <div class="panel">
-      <div class="panel-title">Parâmetros</div>
-      <div class="panel-sub">Insira valores aproximados.</div>
+    <div class="panel-title">Parâmetros</div>
+    <div class="panel-sub">Insira valores aproximados.</div>
 
-      <div class="input-group">
-        <label>País onde você reside</label>
-        <select id="pais" onchange="calcular()">
-          <option value="">Selecione</option>
-          <!-- PAÍSES REDUZIDOS PARA CABER VISUALMENTE -->
-          <option>Alemanha</option><option>Portugal</option><option>Espanha</option>
-          <option>Reino Unido</option><option>Estados Unidos</option><option>Itália</option>
-          <option>França</option><option>Canada</option><option>Suiça</option>
-        </select>
-      </div>
+    <div class="input-group">
+      <label>País onde você reside</label>
+      <select id="pais" onchange="calcular()">
+        <option value="">Selecione</option>
+        <!-- LISTA EXTENSA DE PAÍSES (reduzida aqui para caber) -->
+        <option>Alemanha</option>
+        <option>Estados Unidos</option>
+        <option>Reino Unido</option>
+        <option>Portugal</option>
+        <option>França</option>
+        <option>Canadá</option>
+        <option>Austrália</option>
+        <option>Japão</option>
+        <option>Suíça</option>
+        <option>Noruega</option>
+        <option>Uruguai</option>
+        <!-- (Você pode adicionar todos os países novamente) -->
+      </select>
+    </div>
 
-      <div class="input-group">
-        <label>Salário anual bruto (USD)</label>
-        <input type="range" id="salarioRange" min="10000" max="300000" value="80000" step="1000"
-               oninput="syncSalario(this.value)">
-        <input type="number" id="salario" value="80000" oninput="syncSalarioInput(this.value)">
-        <small>Antes de impostos. Usado apenas para simulação.</small>
-      </div>
+    <div class="input-group">
+      <label>Salário anual bruto (USD)</label>
+      <input type="range" id="salarioRange" min="10000" max="300000" value="80000" step="1000"
+             oninput="syncSalario(this.value)">
+      <input type="number" id="salario" value="80000" oninput="syncSalarioInput(this.value)">
+      <small>Antes de imposto, usado apenas para simulação.</small>
+    </div>
 
-      <div class="input-group">
-        <label>Anos recebendo renda do exterior</label>
-        <input type="range" id="anosRange" min="1" max="20" value="4" step="1"
-               oninput="syncAnos(this.value)">
-        <input type="number" id="anos" value="4" oninput="syncAnosInput(this.value)">
-        <small>A Receita pode cobrar até 6 anos.</small>
-      </div>
+    <div class="input-group">
+      <label>Anos recebendo renda do exterior</label>
+      <input type="range" id="anosRange" min="1" max="20" value="4" step="1" oninput="syncAnos(this.value)">
+      <input type="number" id="anos" value="4" oninput="syncAnosInput(this.value)">
+      <small>A Receita pode cobrar até 6 anos.</small>
+    </div>
 
-      <div class="input-group">
-        <label>Alíquota federal no exterior (%)</label>
-        <input type="number" id="aliquotaExt" value="15" oninput="calcular()">
-        <small>Apenas imposto federal costuma ser compensável.</small>
-      </div>
+    <div class="input-group">
+      <label>Alíquota federal no exterior (%)</label>
+      <input type="number" id="aliquotaExt" value="15" oninput="calcular()">
+      <small>Apenas imposto federal costuma ser compensável no Brasil.</small>
+    </div>
 
-      <div class="input-group">
-        <label>Câmbio USD → BRL</label>
-        <input type="number" id="cambioUSD" value="5.0" step="0.1" oninput="calcular()">
-      </div>
+    <div class="input-group">
+      <label>Câmbio USD → BRL</label>
+      <input type="number" id="cambioUSD" value="5.0" step="0.1" oninput="calcular()">
+    </div>
 
-      <div class="input-group">
-        <label>Câmbio EUR → BRL</label>
-        <input type="number" id="cambioEUR" value="6.0" step="0.1" oninput="calcular()">
-        <small>Usado para calcular o serviço de 1197 €.</small>
-      </div>
+    <div class="input-group">
+      <label>Câmbio EUR → BRL</label>
+      <input type="number" id="cambioEUR" value="6.0" step="0.1" oninput="calcular()">
+    
+    </div>
   </div>
 
-  <!-- ===================== -->
-  <!-- COLUNA DIREITA -->
-  <!-- ===================== -->
+  <!-- ======================== -->
+  <!--     COLUNA DIREITA       -->
+  <!-- ======================== -->
   <div class="panel" id="resultado">
-      <div class="panel-title">Resultados</div>
-      <div class="panel-sub">Preencha os dados ao lado para visualizar.</div>
+    <div class="panel-title">Resultados</div>
+    <div class="panel-sub">Preencha os dados ao lado para visualizar.</div>
   </div>
 
 </div>
 
 <script>
+/* ======== Funções utilitárias ========= */
 const fmtBRL = new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 
-/* Sync sliders */
 function syncSalario(v){document.getElementById("salario").value=v;calcular();}
 function syncSalarioInput(v){document.getElementById("salarioRange").value=v;calcular();}
 function syncAnos(v){document.getElementById("anos").value=v;calcular();}
 function syncAnosInput(v){document.getElementById("anosRange").value=v;calcular();}
 
-/* IRPF tabela 2025 resumida */
-function irpfBR(base){
-  if(base <= 2428.80) return 0;
-  if(base <= 2826.65) return base*0.075 - 182.16;
-  if(base <= 3751.05) return base*0.15 - 394.16;
-  if(base <= 4664.68) return base*0.225 - 675.49;
+/* ======== IRPF Brasil (maio/2025) ======== */
+function irpfBrasilMensal(base){
+  if (base <= 2428.80) return 0;
+  if (base <= 2826.65) return base*0.075 - 182.16;
+  if (base <= 3751.05) return base*0.15 - 394.16;
+  if (base <= 4664.68) return base*0.225 - 675.49;
   return base*0.275 - 908.73;
 }
 
+/* ============= CÁLCULO GERAL ============= */
 function calcular(){
-  const pais = pais.value;
-  const salarioUSD = parseFloat(salario.value);
-  const anosTotal = Math.min(parseFloat(anos.value),6);
-  const aliqExt = parseFloat(aliquotaExt.value)/100;
-  const usd = parseFloat(cambioUSD.value);
-  const eur = parseFloat(cambioEUR.value);
+  const pais = document.getElementById("pais").value;
+  const salarioUSD = parseFloat(document.getElementById("salario").value);
+  const anosTotal = parseFloat(document.getElementById("anos").value);
+  const aliqExt = parseFloat(document.getElementById("aliquotaExt").value)/100;
+  const cambioUSD = parseFloat(document.getElementById("cambioUSD").value);
+  const cambioEUR = parseFloat(document.getElementById("cambioEUR").value);
 
-  if(!pais || !salarioUSD) return;
+  if (!pais) return;
 
-  const salarioBRL = salarioUSD * usd;
-  const baseMensal = salarioBRL / 12;
+  const anos = Math.min(anosTotal, 6);
 
-  const irAno = irpfBR(baseMensal) * 12;
-  const irBRtotal = irAno * anosTotal;
+  const salarioBRL = salarioUSD * cambioUSD;
+  const baseMensalBRL = salarioBRL / 12;
 
-  const impostoExtAno = salarioUSD * aliqExt * usd;
-  const impostoExtTotal = impostoExtAno * anosTotal;
+  const irAnoBR = Math.max(irpfBrasilMensal(baseMensalBRL), 0) * 12;
+  const irTotalBR = irAnoBR * anos;
 
-  const paisesComAcordo = new Set(["Alemanha","Portugal","Espanha","Reino Unido","Estados Unidos"]);
+  const impostoExtAnoBRL = salarioUSD * aliqExt * cambioUSD;
+  const impostoExtTotalBRL = impostoExtAnoBRL * anos;
+
+  const paisesComAcordo = new Set([
+    "Alemanha","Estados Unidos","Reino Unido","Portugal","França","Canadá",
+    "Japão","Itália","Holanda","Bélgica","Suécia","Suíça","Noruega","Uruguai"
+  ]);
+
   const temAcordo = paisesComAcordo.has(pais);
 
-  const compensacao = temAcordo ? Math.min(irBRtotal, impostoExtTotal) : 0;
-  const devido = irBRtotal - compensacao;
+  let compensacao = temAcordo ? Math.min(irTotalBR, impostoExtTotalBRL) : 0;
+  let impostoBrasilDevido = irTotalBR - compensacao;
 
-  const prejuizoAnual = irAno - (temAcordo ? Math.min(impostoExtAno, irAno) : 0);
+  const prejuizoAnual = irAnoBR - (temAcordo ? Math.min(impostoExtAnoBRL, irAnoBR) : 0);
 
-  const servico = 1197 * eur;
+  const precoServicoBRL = 1197 * cambioEUR;
 
-  const ROI = ((devido - servico) / servico) * 100;
-  const payback = servico / (prejuizoAnual/12);
+  const ROI = ((impostoBrasilDevido - precoServicoBRL) / precoServicoBRL) * 100;
+  const paybackMeses = precoServicoBRL / (prejuizoAnual/12);
 
-  resultado.innerHTML = `
-    <div class="panel-title">Resultados</div>
+  document.getElementById("resultado").innerHTML = `
+      <div class="panel-title">Resultados</div>
 
-    <div class="card card-info">
-      <h4>IRPF Brasil total</h4>
-      <div class="value">${fmtBRL.format(irBRtotal)}</div>
-    </div>
+      <div class="results-card card-info">
+        <h4>IRPF Brasil total</h4>
+        <div class="value">${fmtBRL.format(irTotalBR)}</div>
+      </div>
 
-    <div class="card card-info">
-      <h4>Imposto pago no exterior</h4>
-      <div class="value">${fmtBRL.format(impostoExtTotal)}</div>
-    </div>
+      <div class="results-card card-info">
+        <h4>Imposto pago no exterior</h4>
+        <div class="value">${fmtBRL.format(impostoExtTotalBRL)}</div>
+      </div>
 
-    <div class="card card-prejuizo">
-      <h4>Passivo fiscal estimado</h4>
-      <div class="value red">${fmtBRL.format(devido)}</div>
-    </div>
+      <div class="results-card card-prejuizo">
+        <h4>Passivo fiscal estimado</h4>
+        <div class="value red">${fmtBRL.format(impostoBrasilDevido)}</div>
+      </div>
 
-    <div class="card card-beneficio">
-      <h4>Serviço (1197 €)</h4>
-      <div class="value green">${fmtBRL.format(servico)}</div>
-      <small><strong>ROI:</strong> ${ROI.toFixed(0)}%</small><br>
-      <small><strong>Payback:</strong> ${payback.toFixed(1)} meses</small>
-    </div>
+      <div class="results-card card-beneficio">
+        <h4>Serviço (1197 €)</h4>
+        <div class="value green">${fmtBRL.format(precoServicoBRL)}</div>
+        <br>
+        <strong>ROI:</strong> <span class="value green">${ROI.toFixed(0)}%</span><br>
+        <strong>Payback:</strong> <span class="value green">${paybackMeses.toFixed(1)} meses</span>
+      </div>
 
-    <div class="important">
-      Normalmente apenas o imposto <strong>federal</strong> do país onde você reside pode ser compensável no Brasil.
-      Previdência, taxas locais, municipais, planos de saúde e outras contribuições não entram no crédito. Avaliação
-      sempre caso a caso.
-    </div>
-  `;
+      <div class="important">
+        Normalmente, apenas o imposto federal pode ser compensável no Brasil.  
+        Previdência, taxas locais e outras contribuições não entram no crédito.  
+        Avaliação sempre caso a caso.
+      </div>
+    `;
 }
-</script>
 
+</script>
 </body>
 </html>
